@@ -10,6 +10,7 @@ readme = "README.md"
 keywords = ["ffi", "rust", "lua"]
 description = "Execute Lua in Rust."
 
+include = ["src/**/*", "c/**/*", "lua-5.4.6/**/*", "build.rs"]
 
 exclude = ["./c","./lua-5.4.6"]
 
