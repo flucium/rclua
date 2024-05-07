@@ -1,69 +1,56 @@
 # RCLua
+![Crates.io Version](https://img.shields.io/crates/v/rclua?style=flat&link=https%3A%2F%2Fcrates.io%2Fcrates%2Frclua)
+![docs.rs](https://img.shields.io/docsrs/rclua?link=https%3A%2F%2Fdocs.rs%2Frclua%2F0.0.1%2Frclua%2F)
+![GitHub License](https://img.shields.io/github/license/flucium/rclua?style=flat)
+
 RCLua (rclua) is the name given to the combination of Rust, C, and Lua (official).
 
 RCLua allows you to run Lua code from Rust. A key feature is that it wraps Lua official source code in a C program and calls it from Rust. This should make it easier to change Lua versions.
 
-This is still in beta version, so we are not accepting pull requests at this time. if you have any feedback or requests, please contact me.
+One of the key features of RCLua is that you can use Lua without installing it on your system. Even if Lua is already installed on the system, RCLua will not interfere with it. You can use it without polluting your system. This is because RCLua directly includes the official Lua source code and uses it as a library.
+
+*this document assumes RCLua v0.0.1*
 
 ## Build
-
-**Linux (Ubuntu)**
-
-```bash
-git clone git@github.com:flucium/rclua.git
-
-cd ./rclua
-
-# Release build
-zsh ./build.sh release
-
-# Debug
-# zsh ./build.sh debug
-
-# Package
-# zsh ./build.sh package
-
-# Cleanup
-# zsh ./build.sh clean
-```
-
-
-## How to use
+Rough environment: Rust 1.77.2 aarch64-apple-darwin / GCC 11.4.0 / CC 11.4.0 / GNU Make 4.3.
 
 ```bash
 git clone git@github.com:flucium/rclua.git
 
-cd ./rclua
-
 # Release build
-zsh ./build.sh release
+bash ./rclua/build.sh release
 ```
 
-```bash
-cargo new app
-```
+## Usage
+There are two main ways to use it. 1: crates.io. 2: self build.
 
-```toml
-[package]
-name = "app"
-version = "0.0.1"
-edition = "2021"
+### crates.io
+Please check version: [https://crates.io/crates/rclua](https://crates.io/crates/rclua)
+
+```TOML
+# Open `Cargo.toml` in any editor.
+# add [dependencies] rclua = "0.0.1" to Cargo.toml.
 
 [dependencies]
-rclua = {path = "../rclua", version = "0.0.1"}
+rclua = "0.0.1"
 ```
 
-```rust
-use rclua::{eval, Version};
+### self
+Do the build as described in Section 'Build'.
 
-fn main(){
-    let code = "print('Hello, world!')\0";
+```TOML
+# Open `Cargo.toml` in any editor.
+# add [dependencies] rclua = "0.0.1" to Cargo.toml.
+# 'path = ...' must be the location of RCLua(rclua).
 
-    let version = Version::V5_4_6;
-
-    eval(code, version);
-}
+[dependencies]
+rclua = { path = "../rclua", version = "0.0.1" }
 ```
+
+## License
+RCLua is licensed under the [MIT License](./LICENSE). 
+
+For Third-party licenses please read [LICENSE_THIRDPARTY](./LICENSE_THIRDPARTY).
 
 # Lua
 [https://www.lua.org](https://www.lua.org)
