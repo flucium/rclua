@@ -9,7 +9,7 @@ RCLua allows you to run Lua code from Rust. A key feature is that it wraps Lua o
 
 One of the key features of RCLua is that you can use Lua without installing it on your system. Even if Lua is already installed on the system, RCLua will not interfere with it. You can use it without polluting your system. This is because RCLua directly includes the official Lua source code and uses it as a library.
 
-*this document assumes RCLua v0.0.1*
+*this document assumes RCLua v0.0.2*
 
 ## Build
 Rough environment: Rust 1.77.2 aarch64-apple-darwin / GCC 11.4.0 / CC 11.4.0 / GNU Make 4.3.
@@ -29,10 +29,10 @@ Please check version: [https://crates.io/crates/rclua](https://crates.io/crates/
 
 ```TOML
 # Open `Cargo.toml` in any editor.
-# add [dependencies] rclua = "0.0.1" to Cargo.toml.
+# add [dependencies] rclua = "0.0.2" to Cargo.toml.
 
 [dependencies]
-rclua = "0.0.1"
+rclua = "0.0.2"
 ```
 
 ### self
@@ -40,11 +40,11 @@ Do the build as described in Section 'Build'.
 
 ```TOML
 # Open `Cargo.toml` in any editor.
-# add [dependencies] rclua = "0.0.1" to Cargo.toml.
+# add [dependencies] rclua = "0.0.2" to Cargo.toml.
 # 'path = ...' must be the location of RCLua(rclua).
 
 [dependencies]
-rclua = { path = "../rclua", version = "0.0.1" }
+rclua = { path = "../rclua", version = "0.0.2" }
 ```
 
 ## License
