@@ -54,6 +54,14 @@ impl ToString for Version {
 ///
 /// ```
 pub fn eval(code: &str, version: Version) {
+    let code = code.to_string();
+
+    let code = if code.ends_with('\0') {
+        code
+    } else {
+        code + "\0"
+    };
+
     unsafe {
         match version {
             Version::V5_4_6 => eval_5_4_6(code.as_ptr() as *const c_char),
@@ -75,6 +83,13 @@ fn test_eval() {
     eval("print('Hello, world!')\0", Version::default());
 
     eval("print('Hello, world!')\0", Version::V5_4_6);
+}
+
+#[test]
+fn test_eval_not_eof() {
+    eval("print('Hello, world!')", Version::default());
+
+    eval("print('Hello, world!')", Version::V5_4_6);
 }
 
 #[test]
