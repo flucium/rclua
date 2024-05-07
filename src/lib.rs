@@ -50,7 +50,7 @@ impl ToString for Version {
 ///
 /// let version = Version::V5_4_6;
 ///
-/// unsafe { eval(code, version); }
+/// eval(code, version);
 ///
 /// ```
 pub fn eval(code: &str, version: Version) {
