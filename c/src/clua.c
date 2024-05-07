@@ -2,9 +2,9 @@
 #include "../../lua-5.4.6/src/lauxlib.h"
 #include "../../lua-5.4.6/src/lualib.h"
 
-extern int eval(const char *code);
+extern int eval_5_4_6(const char *code);
 
-int eval(const char *code)
+int eval_5_4_6(const char *code)
 {
     lua_State *L = luaL_newstate();
     
