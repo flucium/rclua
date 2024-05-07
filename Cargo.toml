@@ -3,6 +3,13 @@ name = "rclua"
 version = "0.0.1"
 edition = "2021"
 build = "build.rs"
+authors = ["flucium"]
+license = "MIT"
+repository = "https://github.com/flucium/rclua"
+readme = "README.md"
+keywords = ["ffi", "rust", "lua"]
+description = "Execute Lua in Rust."
+
 
 exclude = ["./c","./lua-5.4.6"]
 
