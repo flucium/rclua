@@ -1,4 +1,4 @@
-extern crate libc;
+pub extern crate libc;
 use libc::c_char;
 
 #[link(name = "clua", kind = "static")]
