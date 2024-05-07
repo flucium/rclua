@@ -4,7 +4,7 @@ use libc::c_char;
 #[link(name = "clua", kind = "static")]
 extern "C" {
     /// Evaluate Lua code for Lua 5.4.6
-    pub fn eval_5_4_6(code: *const c_char);
+    fn eval_5_4_6(code: *const c_char);
 }
 
 /// Lua version
@@ -32,19 +32,34 @@ impl ToString for Version {
     }
 }
 
-/// Evaluate Lua code
+/// Evaluate Lua code.
 ///
-/// # Safety
+/// This function takes a string of Lua code and a version of Lua, and evaluates the code using the specified version of Lua.
 ///
-/// This function is unsafe because it dereferences a raw pointer.
-pub unsafe fn eval(code: &str, version: Version) {
+/// # Arguments
+///
+/// * `code` - A string slice containing the Lua code to be evaluated.
+/// * `version` - The version of Lua to use for evaluating the code.
+///
+/// # Example
+///
+/// ```
+/// use rclua::{eval, Version};
+///
+/// let code = "print('Hello, world!')\0";
+///
+/// let version = Version::V5_4_6;
+///
+/// unsafe { eval(code, version); }
+///
+/// ```
+pub fn eval(code: &str, version: Version) {
     unsafe {
         match version {
             Version::V5_4_6 => eval_5_4_6(code.as_ptr() as *const c_char),
         }
     }
 }
-
 
 #[test]
 fn test_version() {
@@ -57,11 +72,9 @@ fn test_version() {
 
 #[test]
 fn test_eval() {
-    unsafe {
-        eval("print('Hello, world!')\0", Version::default());
+    eval("print('Hello, world!')\0", Version::default());
 
-        eval("print('Hello, world!')\0", Version::V5_4_6);
-    }
+    eval("print('Hello, world!')\0", Version::V5_4_6);
 }
 
 #[test]
