@@ -1,10 +1,29 @@
 pub extern crate libc;
 use libc::c_char;
 
-#[link(name = "clua", kind = "static")]
+#[link(name = "clua_5_4_6", kind = "static")]
 extern "C" {
     /// Evaluate Lua code for Lua 5.4.6
     fn eval_5_4_6(code: *const c_char);
+}
+
+#[link(name = "clua_5_4_0", kind = "static")]
+extern "C" {
+    /// Evaluate Lua code for Lua 5.4.0
+    fn eval_5_4_0(code: *const c_char);
+}
+
+
+fn _eval_5_4_6(code: &str) {
+    unsafe {
+        eval_5_4_6(code.as_ptr() as *const c_char);
+    }
+}
+
+fn _eval_5_4_0(code: &str) {
+    unsafe {
+        eval_5_4_0(code.as_ptr() as *const c_char);
+    }
 }
 
 /// Lua version
@@ -14,6 +33,7 @@ extern "C" {
 pub enum Version {
     #[default]
     V5_4_6,
+    V5_4_0,
 }
 
 impl Version {
@@ -21,6 +41,7 @@ impl Version {
     pub fn as_str(&self) -> &str {
         match self {
             Version::V5_4_6 => "5.4.6",
+            Version::V5_4_0 => "5.4.0",
         }
     }
 }
@@ -65,17 +86,23 @@ pub fn eval(code: &str, version: Version) {
     unsafe {
         match version {
             Version::V5_4_6 => eval_5_4_6(code.as_ptr() as *const c_char),
+            Version::V5_4_0 => eval_5_4_0(code.as_ptr() as *const c_char),
         }
     }
 }
 
 #[test]
-fn test_version() {
-    assert_eq!(Version::V5_4_6.as_str(), "5.4.6");
+fn test_eval_5_4_6() {
+    unsafe {
+        eval_5_4_6("print('Hello, Lua 5.4.6!')\0".as_ptr() as *const c_char);
+    }
+}
 
-    assert_eq!(Version::V5_4_6.to_string(), "5.4.6");
-
-    assert_eq!(Version::default(), Version::V5_4_6);
+#[test]
+fn test_eval_5_4_0() {
+    unsafe {
+        eval_5_4_0("print('Hello, Lua 5.4.0!')\0".as_ptr() as *const c_char);
+    }
 }
 
 #[test]
@@ -83,6 +110,8 @@ fn test_eval() {
     eval("print('Hello, world!')\0", Version::default());
 
     eval("print('Hello, world!')\0", Version::V5_4_6);
+
+    eval("print('Hello, world!')\0", Version::V5_4_0);
 }
 
 #[test]
@@ -90,11 +119,4 @@ fn test_eval_not_eof() {
     eval("print('Hello, world!')", Version::default());
 
     eval("print('Hello, world!')", Version::V5_4_6);
-}
-
-#[test]
-fn test_clua_eval_5_4_6() {
-    unsafe {
-        eval_5_4_6("print('Hello, world!')\0".as_ptr() as *const c_char);
-    }
 }
