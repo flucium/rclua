@@ -1,6 +1,6 @@
 [package]
 name = "rclua"
-version = "0.0.2"
+version = "1.0.0"
 edition = "2021"
 build = "build.rs"
 authors = ["flucium"]
@@ -10,9 +10,9 @@ readme = "README.md"
 keywords = ["ffi", "rust", "lua"]
 description = "Execute Lua in Rust."
 
-include = ["src/**/*", "c/**/*", "lua-5.4.6/**/*", "build.rs"]
+include = ["src/**/*", "c/**/*", "lua-5.4.6/**/*","lua-5.4.0/**/*", "build.rs"]
 
-exclude = ["./c","./lua-5.4.6"]
+exclude = ["./c","./lua-5.4.6","./lua-5.4.0"]
 
 [dependencies]
 libc = "0.2.154"
