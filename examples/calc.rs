@@ -20,19 +20,19 @@ const LUA_SCRIPT_DIVIDE_FUNCTION: &str =
     "function divide(a, b) return a / b end print(divide(1, 2))";
 
 fn main() {
-    eval(LUA_SCRIPT_PLUS, Version::V5_4_6);
+    execute(LUA_SCRIPT_PLUS, Version::V5_4_6);
 
-    eval(LUA_SCRIPT_MINUS, Version::V5_4_6);
+    execute(LUA_SCRIPT_MINUS, Version::V5_4_6);
 
-    eval(LUA_SCRIPT_MULTIPLY, Version::V5_4_6);
+    execute(LUA_SCRIPT_MULTIPLY, Version::V5_4_6);
 
-    eval(LUA_SCRIPT_DIVIDE, Version::V5_4_6);
+    execute(LUA_SCRIPT_DIVIDE, Version::V5_4_6);
 
-    eval(LUA_SCRIPT_PLUS_FUNCTION, Version::V5_4_6);
+    execute(LUA_SCRIPT_PLUS_FUNCTION, Version::V5_4_6);
 
-    eval(LUA_SCRIPT_MINUS_FUNCTION, Version::V5_4_6);
+    execute(LUA_SCRIPT_MINUS_FUNCTION, Version::V5_4_6);
 
-    eval(LUA_SCRIPT_MULTIPLY_FUNCTION, Version::V5_4_6);
+    execute(LUA_SCRIPT_MULTIPLY_FUNCTION, Version::V5_4_6);
 
-    eval(LUA_SCRIPT_DIVIDE_FUNCTION, Version::V5_4_6);
+    execute(LUA_SCRIPT_DIVIDE_FUNCTION, Version::V5_4_6);
 }
