@@ -2,9 +2,9 @@
 #include "../../lua-5.4.0/src/lauxlib.h"
 #include "../../lua-5.4.0/src/lualib.h"
 
-extern int eval_5_4_0(const char *code);
+extern int execute_5_4_0(const char *code);
 
-int eval_5_4_0(const char *code)
+int execute_5_4_0(const char *code)
 {
     lua_State *L = luaL_newstate();
     
