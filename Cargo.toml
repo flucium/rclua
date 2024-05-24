@@ -7,7 +7,7 @@ authors = ["flucium"]
 license = "MIT"
 repository = "https://github.com/flucium/rclua"
 readme = "README.md"
-keywords = ["ffi", "rust", "lua"]
+keywords = ["lua", "rust", "rclua"]
 description = "Execute Lua in Rust."
 
 include = ["src/**/*", "c/**/*", "lua-5.4.6/**/*","lua-5.4.0/**/*", "build.rs"]
