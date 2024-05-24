@@ -64,13 +64,13 @@ impl ToString for Version {
 /// # Example
 ///
 /// ```
-/// use rclua::{eval, Version};
+/// use rclua::{execute, Version};
 ///
 /// let code = "print('Hello, world!')\0";
 ///
 /// let version = Version::V5_4_6;
 ///
-/// eval(code, version);
+/// execute(code, version);
 ///
 /// ```
 pub fn execute(code: &str, version: Version) {
