@@ -1,6 +1,6 @@
 # RCLua
 ![Crates.io Version](https://img.shields.io/crates/v/rclua?style=flat&link=https%3A%2F%2Fcrates.io%2Fcrates%2Frclua)
-![docs.rs](https://img.shields.io/docsrs/rclua?link=https%3A%2F%2Fdocs.rs%2Frclua%2F0.0.1%2Frclua%2F)
+![docs.rs](https://img.shields.io/docsrs/rclua?link=https%3A%2F%2Fdocs.rs%2Frclua%2F1.0.0%2Frclua%2F)
 ![GitHub License](https://img.shields.io/github/license/flucium/rclua?style=flat)
 
 RCLua (rclua) is the name given to the combination of Rust, C, and Lua (official).
