@@ -1,10 +1,9 @@
 #![feature(test)]
-
 extern crate test;
 
-#[bench]
-fn bench_lua_5_4_0(b: &mut test::Bencher) {
-    const CODE:&str = r"
+use test::Bencher;
+
+const CODE: &str = r"
 local count = 0
 
 function hanoi(n, a, b, c)
@@ -17,9 +16,18 @@ function hanoi(n, a, b, c)
     end
 end
 
-hanoi(5, 'a', 'b', 'c')
+hanoi(3, 'a', 'b', 'c')
 ";
 
+#[bench]
+fn bench_execute_5_4_6(b: &mut Bencher) {
+    b.iter(|| {
+        rclua::execute(CODE, rclua::Version::V5_4_6);
+    });
+}
+
+#[bench]
+fn bench_execute_5_4_0(b: &mut Bencher) {
     b.iter(|| {
         rclua::execute(CODE, rclua::Version::V5_4_0);
     });
@@ -27,24 +35,25 @@ hanoi(5, 'a', 'b', 'c')
 
 
 #[bench]
-fn bench_lua_5_4_6(b: &mut test::Bencher) {
-    const CODE:&str = r"
-local count = 0
-
-function hanoi(n, a, b, c)
-    if n > 0 then
-        hanoi(n-1, a, c, b)
-        
-        count = count + 1
-        
-        hanoi(n-1, c, b, a)
-    end
-end
-
-hanoi(5, 'a', 'b', 'c')
-";
-
+fn bench_lua_obj_5_4_0_execute(b: &mut Bencher) {
+    
     b.iter(|| {
-        rclua::execute(CODE, rclua::Version::V5_4_6);
+        let mut lua = rclua::Lua::new(rclua::Version::V5_4_0);
+        
+        lua.load(CODE).unwrap();
+        
+        lua.execute();    
+    });
+}
+
+#[bench]
+fn bench_lua_obj_5_4_6_execute(b: &mut Bencher) {
+    
+    b.iter(|| {
+        let mut lua = rclua::Lua::new(rclua::Version::V5_4_6);
+        
+        lua.load(CODE).unwrap();
+        
+        lua.execute();
     });
 }
