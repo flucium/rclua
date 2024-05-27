@@ -12,7 +12,7 @@ description = "Execute Lua in Rust."
 
 include = ["src/**/*", "c/*.a", "lua-*/**/*.o", "lua-*/*.a", "build.rs"]
 
-exclude = ["./c","./lua-5.4.6","./lua-5.4.0"]
+exclude = ["./c","./lua-5.4.6","./lua-5.4.0", "./benches"]
 
 [dependencies]
 libc = "0.2.154"
