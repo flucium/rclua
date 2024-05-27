@@ -93,32 +93,139 @@ pub fn execute(code: &str, version: Version) {
     }
 }
 
-#[test]
-fn test_execute_5_4_6() {
-    unsafe {
-        execute_5_4_6("print('Hello, Lua 5.4.6!')\0".as_ptr() as *const c_char);
+/// Lua obj.
+#[derive(Debug)]
+pub struct Lua(Version, std::ffi::CString);
+
+impl Lua {
+    /// Create a new Lua obj.
+    ///
+    /// # Arguments
+    /// - `version` - The version of Lua to use for evaluating the code.
+    pub fn new(version: Version) -> Self {
+        Self(version, std::ffi::CString::default())
+    }
+
+    /// Load Lua code.
+    ///
+    /// # Arguments
+    /// - `code` - A string slice containing the Lua code to be evaluated.
+    pub fn load(
+        &mut self,
+        code: impl Into<String>,
+    ) -> std::result::Result<&mut Self, std::ffi::NulError> {
+        let code = code.into();
+
+        let code = if code.ends_with('\0') {
+            code.trim_end_matches('\0').to_string()
+        } else {
+            code
+        };
+
+        self.1 = std::ffi::CString::new(code)?;
+
+        Ok(self)
+    }
+
+    /// Execute Lua code.
+    pub fn execute(&self) {
+        unsafe {
+            match self.0 {
+                Version::V5_4_6 => execute_5_4_6(self.1.as_ptr() as *const c_char),
+                Version::V5_4_0 => execute_5_4_0(self.1.as_ptr() as *const c_char),
+            }
+        }
+    }
+
+    /// Execute Lua code.
+    ///
+    /// This is an alias for `execute`.
+    pub fn exec(&self) {
+        self.execute();
+    }
+    
+    /// Get the version of Lua.
+    pub fn version(&self) -> &Version {
+        &self.0
+    }
+
+    /// Get the Lua code.
+    pub fn code(&self) -> &std::ffi::CString {
+        &self.1
     }
 }
 
-#[test]
-fn test_execute_5_4_0() {
-    unsafe {
-        execute_5_4_0("print('Hello, Lua 5.4.0!')\0".as_ptr() as *const c_char);
+impl Default for Lua {
+    /// Create a new Lua obj with default values.
+    /// Lua version is 5.4.6
+    fn default() -> Self {
+        Self(Version::V5_4_6, std::ffi::CString::default())
     }
 }
 
-#[test]
-fn test_eval() {
-    execute("print('Hello, world!')\0", Version::default());
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-    execute("print('Hello, world!')\0", Version::V5_4_6);
+    #[test]
+    fn test_version_as_str() {
+        assert_eq!(Version::V5_4_6.as_str(), "5.4.6");
+        assert_eq!(Version::V5_4_0.as_str(), "5.4.0");
+    }
 
-    execute("print('Hello, world!')\0", Version::V5_4_0);
-}
+    #[test]
+    fn test_version_to_string() {
+        assert_eq!(Version::V5_4_6.to_string(), "5.4.6");
+        assert_eq!(Version::V5_4_0.to_string(), "5.4.0");
+    }
 
-#[test]
-fn test_eval_not_eof() {
-    execute("print('Hello, world!')", Version::default());
+    #[test]
+    fn test_lua_5_4_0_load() {
+        let mut lua = Lua::new(Version::V5_4_0);
 
-    execute("print('Hello, world!')", Version::V5_4_6);
+        let is_ok = lua.load(
+            r#"
+        local count = 0
+
+        function hanoi(n, a, b, c)
+            if n > 0 then
+                hanoi(n-1, a, c, b)
+                
+                count = count + 1
+                
+                hanoi(n-1, c, b, a)
+            end
+        end
+
+        hanoi(3, 'a', 'b', 'c')
+    "#,
+        );
+
+        assert!(is_ok.is_ok());
+    }
+
+    #[test]
+    fn test_lua_5_4_6_load() {
+        let mut lua = Lua::new(Version::V5_4_6);
+
+        let is_ok = lua.load(
+            r#"
+        local count = 0
+
+        function hanoi(n, a, b, c)
+            if n > 0 then
+                hanoi(n-1, a, c, b)
+                
+                count = count + 1
+                
+                hanoi(n-1, c, b, a)
+            end
+        end
+
+        hanoi(3, 'a', 'b', 'c')
+    "#,
+        );
+
+        assert!(is_ok.is_ok());
+    }
 }
