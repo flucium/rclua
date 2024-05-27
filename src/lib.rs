@@ -31,7 +31,10 @@ fn _execute_5_4_0(code: &str) {
 #[derive(Debug, Default, PartialEq, Eq)]
 pub enum Version {
     #[default]
+    /// Lua 5.4.6
     V5_4_6,
+
+    /// Lua 5.4.0
     V5_4_0,
 }
 
