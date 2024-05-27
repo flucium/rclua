@@ -80,7 +80,7 @@ debug()
 
 package()
 { 
-  debug
+  # debug
   release
   cargo package --allow-dirty
 }
