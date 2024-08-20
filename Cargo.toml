@@ -18,5 +18,5 @@ exclude = ["./c","./lua-5.4.6","./lua-5.4.0", "./benches"]
 libc = "0.2.154"
 
 [build-dependencies]
-cc = "1.0.97"
+cc = "1.1.13"
 bindgen = "0.70.0"
