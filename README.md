@@ -1,6 +1,6 @@
 # RCLua
 ![Crates.io Version](https://img.shields.io/crates/v/rclua?style=flat&link=https%3A%2F%2Fcrates.io%2Fcrates%2Frclua)
-![docs.rs](https://img.shields.io/docsrs/rclua?link=https%3A%2F%2Fdocs.rs%2Frclua%2F1.0.1%2Frclua%2F)
+![docs.rs](https://img.shields.io/docsrs/rclua?link=https%3A%2F%2Fdocs.rs%2Frclua%2F1.0.2%2Frclua%2F)
 ![GitHub License](https://img.shields.io/github/license/flucium/rclua?style=flat)
 
 RCLua (rclua) is the name given to the combination of Rust, C, and Lua (official).
@@ -9,7 +9,7 @@ RCLua allows you to run Lua code from Rust. A key feature is that it wraps Lua o
 
 One of the key features of RCLua is that you can use Lua without installing it on your system. Even if Lua is already installed on the system, RCLua will not interfere with it. You can use it without polluting your system. This is because RCLua directly includes the official Lua source code and uses it as a library.
 
-*this document assumes RCLua v1.0.1*
+*this document assumes RCLua v1.0.2*
 
 ### Supported Lua version
 Lua 5.4.6 / Lua 5.4.0
@@ -32,10 +32,10 @@ Please check version: [https://crates.io/crates/rclua](https://crates.io/crates/
 
 ```TOML
 # Open `Cargo.toml` in any editor.
-# add [dependencies] rclua = "1.0.1" to Cargo.toml.
+# add [dependencies] rclua = "1.0.2" to Cargo.toml.
 
 [dependencies]
-rclua = "1.0.1"
+rclua = "1.0.2"
 ```
 
 ### self
@@ -43,11 +43,11 @@ Do the build as described in Section 'Build'.
 
 ```TOML
 # Open `Cargo.toml` in any editor.
-# add [dependencies] rclua = "1.0.1" to Cargo.toml.
+# add [dependencies] rclua = "1.0.2" to Cargo.toml.
 # 'path = ...' must be the location of RCLua(rclua).
 
 [dependencies]
-rclua = { path = "../rclua", version = "1.0.1" }
+rclua = { path = "../rclua", version = "1.0.2" }
 ```
 
 ## License
