@@ -15,7 +15,7 @@ One of the key features of RCLua is that you can use Lua without installing it o
 Lua 5.4.6 / Lua 5.4.0
 
 ## Build
-Rough environment: Rust 1.77.2 aarch64-apple-darwin / GCC 11.4.0 / CC 11.4.0 / GNU Make 4.3.
+Rough environment: Rust 1.80.1 aarch64-unknown-linux-gnu / GCC 11.4.0 / CC 11.4.0 / GNU Make 4.3.
 
 ```bash
 git clone git@github.com:flucium/rclua.git
