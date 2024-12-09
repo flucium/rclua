@@ -19,4 +19,4 @@ libc = "0.2.154"
 
 [build-dependencies]
 cc = "1.1.13"
-bindgen = "0.70.0"
+bindgen = "0.71.0"
