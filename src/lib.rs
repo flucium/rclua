@@ -1,6 +1,13 @@
 pub extern crate libc;
 use libc::c_char;
 
+
+#[link(name = "clua_5_5_0", kind = "static")]
+extern "C" {
+    /// Evaluate Lua code for Lua 5.5.0
+    fn execute_5_5_0(code: *const c_char);
+}
+
 #[link(name = "clua_5_4_6", kind = "static")]
 extern "C" {
     /// Evaluate Lua code for Lua 5.4.6
@@ -11,6 +18,13 @@ extern "C" {
 extern "C" {
     /// Evaluate Lua code for Lua 5.4.0
     fn execute_5_4_0(code: *const c_char);
+}
+
+
+fn _execute_5_5_0(code: &str) {
+    unsafe {
+        execute_5_5_0(code.as_ptr() as *const c_char);
+    }
 }
 
 fn _execute_5_4_6(code: &str) {
@@ -31,6 +45,7 @@ fn _execute_5_4_0(code: &str) {
 #[derive(Debug, Default, PartialEq, Eq)]
 pub enum Version {
     #[default]
+    V5_5_0,
     V5_4_6,
     V5_4_0,
 }
@@ -39,6 +54,7 @@ impl Version {
     /// Get the version as a &str (e.g. "5.4.6")
     pub fn as_str(&self) -> &str {
         match self {
+            Version::V5_5_0 => "5.5.0",
             Version::V5_4_6 => "5.4.6",
             Version::V5_4_0 => "5.4.0",
         }
@@ -84,9 +100,17 @@ pub fn execute(code: &str, version: Version) {
 
     unsafe {
         match version {
+            Version::V5_5_0 => execute_5_5_0(code.as_ptr() as *const c_char),
             Version::V5_4_6 => execute_5_4_6(code.as_ptr() as *const c_char),
             Version::V5_4_0 => execute_5_4_0(code.as_ptr() as *const c_char),
         }
+    }
+}
+
+#[test]
+fn test_execute_5_5_0() {
+    unsafe {
+        execute_5_5_0("print('Hello, Lua 5.5.0!')\0".as_ptr() as *const c_char);
     }
 }
 
