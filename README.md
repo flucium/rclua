@@ -12,7 +12,7 @@ One of the key features of RCLua is that you can use Lua without installing it o
 *this document assumes RCLua v1.0.2*
 
 ### Supported Lua version
-Lua 5.4.6 / Lua 5.4.0
+Lua 5.5.0 / Lua 5.4.6 / Lua 5.4.0
 
 ## Build
 Rough environment: Rust 1.80.1 aarch64-unknown-linux-gnu / GCC 11.4.0 / CC 11.4.0 / GNU Make 4.3.
