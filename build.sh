@@ -1,3 +1,15 @@
+lua_5_5_0()
+{
+  # Lua 5.5.0
+  cd lua-5.5.0/src
+  make
+  ar rcs liblua.a ./*.o
+  mv ./liblua.a ../liblua.a
+
+  # Back to root
+  cd ../..
+}
+
 lua_5_4_6()
 {
   # Lua 5.4.6
@@ -17,6 +29,20 @@ lua_5_4_0()
   make
   ar rcs liblua.a ./*.o
   mv ./liblua.a ../liblua.a
+
+  # Back to root
+  cd ../..
+}
+
+clua_5_5_0()
+{
+  # To CLua
+  cd c/src
+  
+  # CLua 5.5.0
+  gcc -c ./clua_5_5_0.c -o clua_5_5_0.o
+  ar rcs libclua_5_5_0.a clua_5_5_0.o
+  mv ./libclua_5_5_0.a ../libclua_5_5_0.a
 
   # Back to root
   cd ../..
@@ -62,8 +88,10 @@ doc_open()
 
 release()
 {
+  lua_5_5_0
   lua_5_4_6
   lua_5_4_0
+  clua_5_5_0
   clua_5_4_6
   clua_5_4_0
   cargo build --release
@@ -71,8 +99,10 @@ release()
 
 debug()
 {
+  lua_5_5_0
   lua_5_4_6
   lua_5_4_0
+  clua_5_5_0
   clua_5_4_6
   clua_5_4_0
   cargo build
